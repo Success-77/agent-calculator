@@ -1,5 +1,5 @@
-import "./Home.css";
 import React, { useState, useEffect } from "react";
+import "./Home.css";
 
 const agentPrices = {
   1: 5,
@@ -22,19 +22,18 @@ const agentPrices = {
 };
 
 function gigFormatter(packages) {
-  const values = packages.map((pack) => pack + "GB");
-  return values;
+  return packages.map((pack) => pack + "GB");
 }
 
 function amounts(dictionary, packages) {
-  const prices = packages.map((pack) => dictionary[parseInt(pack)]);
-  return prices;
+  return packages.map((pack) => dictionary[parseInt(pack)]);
 }
 
 const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
   const [tableContent, setTableContent] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     // Update table content whenever inputValue changes
@@ -60,46 +59,28 @@ const Home = () => {
   };
 
   const tabularFormat = (packages, prices) => {
-    let formattedTable = "<div>";
-    formattedTable += "<p>PACKS&nbsp;&nbsp;PRICES</p>";
-    packages.forEach((pack, index) => {
-      const packLen = pack.length;
-      const priceLen = String(prices[index]).length;
-      const middleLen =
-        25 - (packLen + 1 + (priceLen + 1) + (String(index + 1).length + 2));
-      let middleDots = "";
-      for (let dot = 0; dot < middleLen; dot++) {
-        middleDots += ".";
-      }
-      formattedTable += `<p>${index + 1}. ${pack} ${middleDots} ${
-        prices[index]
-      }</p>`;
-    });
-    formattedTable += "</div>";
-    const period = new Date().toLocaleDateString("en-GB");
-    formattedTable += `<p>Total: GHS${prices.reduce(
-      (acc, cur) => acc + cur,
-      0
-    )}</p>`;
-    formattedTable += `<p>Orders placed on ${period}</p>`;
-    return formattedTable;
+    return (
+      <div>
+        <p>PACKS&nbsp;&nbsp;PRICES</p>
+        {packages.map((pack, index) => (
+          <p key={index}>
+            {index + 1}. {pack} .................... {prices[index]}
+          </p>
+        ))}
+        <p>Total: GHS{prices.reduce((acc, cur) => acc + cur, 0)}</p>
+        <p>Orders placed on {new Date().toLocaleDateString("en-GB")}</p>
+      </div>
+    );
   };
 
   const handleCopyToClipboard = () => {
-    // Construct the header content
-    //const headerContent = "PACKS\t\t\t\t\t\t\t\t\t\tPRICES\n";
-
-    // Construct the plain text content with proper line breaks
-    const plainTextContent = tableContent;
+    const plainTextContent = tableContent.props.children;
 
     // Create a temporary textarea element
     const tempTextArea = document.createElement("textarea");
 
     // Set the value of the textarea to the prepared text content
-    tempTextArea.value = plainTextContent
-      .replace(/<\/?p>/g, "\n")
-      .replace(/&nbsp;/g, "\t")
-      .replace(/<[^>]+>/g, ""); // Replace HTML tags and entities with proper line breaks and tabs
+    tempTextArea.value = plainTextContent;
 
     // Append the textarea to the document body
     document.body.appendChild(tempTextArea);
@@ -112,17 +93,9 @@ const Home = () => {
 
     // Remove the temporary textarea from the document body
     document.body.removeChild(tempTextArea);
-  };
 
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    // Update state to indicate that the image has been clicked
-    setIsClicked(true);
-
-    // Copy the content here (you can use document.execCommand('copy') or other methods)
-    // For simplicity, I'm just logging a message to the console
-    console.log("Content copied!");
+    // Set isCopied to true to show the message
+    setIsCopied(true);
   };
 
   return (
@@ -139,26 +112,19 @@ const Home = () => {
             id="day_sales"
             placeholder="10 + 7 + 9 + 6 + 4"
             value={inputValue}
-            onChange={handleInputChange} // Add onChange event handler to update the input value
+            onChange={handleInputChange}
           />
+          {inputError && <p>{inputError}</p>}
         </div>
-        <div className="submit-button">{inputError && <p>{inputError}</p>}</div>
       </div>
       <div className="packs-container form">
-        <div dangerouslySetInnerHTML={{ __html: tableContent }}></div>
-        {isClicked ? (
-          <p>Content copied!</p>
-        ) : (
-          <button
-            className="copy"
-            onClick={() => {
-              handleClick();
-              handleCopyToClipboard();
-            }}
-          >
+        {tableContent}
+        {!isCopied && (
+          <button className="copy" onClick={handleCopyToClipboard}>
             Copy
           </button>
         )}
+        {isCopied && <p>Content copied!</p>}
       </div>
     </div>
   );

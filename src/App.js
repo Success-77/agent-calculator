@@ -1,14 +1,14 @@
+import React from "react";
 import "./App.css";
-import "./Navbar.js";
-import Navbar from "./Navbar";
-import Home from "./Home";
+import Navbar from "./Navbar"; // Importing the Navbar component
+import Home from "./Home"; // Importing the Home component
 
 function App() {
   return (
     <div className="App">
-      <Navbar></Navbar>
+      <Navbar /> {/* Rendering the Navbar component */}
       <div className="Home">
-        <Home />
+        <Home /> {/* Rendering the Home component */}
       </div>
     </div>
   );

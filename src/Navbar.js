@@ -1,4 +1,4 @@
-import { link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Corrected import statement
 import "./Navbar.css";
 
 const Navbar = () => {
