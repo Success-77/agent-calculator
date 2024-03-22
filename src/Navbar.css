@@ -14,12 +14,12 @@
   justify-content: space-between;
 }
 
-.list-item a {
+.list-item Link {
   text-decoration: none;
   color: black;
 }
 
-.list-item a:hover {
+.list-item Link:hover {
   color: powderblue;
   transition: 0.5s;
 }
