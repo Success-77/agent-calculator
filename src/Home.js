@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css";
 
 const agentPrices = {
   1: 5,
