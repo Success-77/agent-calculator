@@ -72,14 +72,45 @@ const Home = () => {
     );
   };
 
-  const handleCopyToClipboard = () => {
-    const plainTextContent = tableContent.props.children;
+  const extractTextContent = (element) => {
+    if (typeof element === "string") {
+      return element; // Return the string directly
+    } else if (Array.isArray(element)) {
+      return element.map(extractTextContent).join(""); // Extract text content from each array item
+    } else if (
+      typeof element === "object" &&
+      element.props &&
+      element.props.children
+    ) {
+      return extractTextContent(element.props.children); // Extract text content from props.children
+    } else {
+      return ""; // Return an empty string for other types
+    }
+  };
 
-    // Create a temporary textarea element
+  const handleCopyToClipboard = () => {
+    // Construct the header content
+    const headerContent = "PACKS\t\tPRICES\n";
+
+    // Extract text content from tableContent
+    const tableTextContent = extractTextContent(tableContent);
+
+    // Split the tableTextContent into lines based on <p> tags
+    const lines = tableTextContent.split("<p>");
+
+    // Remove empty lines and join the lines with newline characters
+    const plainTextContent =
+      headerContent + lines.filter((line) => line.trim() !== "").join("\n");
+
+    // Create a temporary textarea element and copy the text content to clipboard
+    // (The rest of the function remains the same)
     const tempTextArea = document.createElement("textarea");
 
     // Set the value of the textarea to the prepared text content
-    tempTextArea.value = plainTextContent;
+    tempTextArea.value = plainTextContent
+      .replace(/<\/?p>/g, "\n")
+      .replace(/&nbsp;/g, "\t")
+      .replace(/<[^>]+>/g, ""); // Replace HTML tags and entities with proper line breaks and tabs
 
     // Append the textarea to the document body
     document.body.appendChild(tempTextArea);
