@@ -1,24 +1,4 @@
-import React, { useState, useEffect } from "react";
-
-const agentPrices = {
-  1: 5,
-  2: 8.5,
-  3: 11.5,
-  4: 17,
-  5: 19,
-  6: 19 + 5,
-  7: 19 + 8.5,
-  8: 31,
-  9: 33,
-  10: 35,
-  15: 52,
-  20: 68,
-  25: 82,
-  30: 100,
-  40: 135,
-  50: 158,
-  100: 300,
-};
+import React, { useState, useEffect, useMemo } from "react";
 
 function gigFormatter(packages) {
   return packages.map((pack) => pack + "GB");
@@ -29,29 +9,50 @@ function amounts(dictionary, packages) {
 }
 
 const Home = () => {
+  const initialAgentPrices = useMemo(
+    () => ({
+      1: 5,
+      2: 8.5,
+      3: 11.5,
+      4: 17,
+      5: 19,
+      6: 19 + 5,
+      7: 19 + 8.5,
+      8: 31,
+      9: 33,
+      10: 35,
+      15: 52,
+      20: 68,
+      25: 82,
+      30: 100,
+      40: 135,
+      50: 158,
+      100: 300,
+    }),
+    []
+  );
+
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
   const [tableContent, setTableContent] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    // Update table content whenever inputValue changes
     let values = inputValue.split("+").map((value) => value.trim());
     let packs = gigFormatter(values);
-    let prices = amounts(agentPrices, values);
+    let prices = amounts(initialAgentPrices, values);
     const formattedTable = tabularFormat(packs, prices);
     setTableContent(formattedTable);
-  }, [inputValue]);
+  }, [inputValue, initialAgentPrices]);
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
 
-    // Regular expression to match integers, spaces, and the plus sign
     const validInputRegex = /^[0-9+\s]*$/;
 
     if (validInputRegex.test(inputValue)) {
       setInputValue(inputValue);
-      setInputError(""); // Clear input error if input is valid
+      setInputError("");
     } else {
       setInputError("Input must contain only numbers, spaces, and +");
     }
@@ -60,73 +61,73 @@ const Home = () => {
   const tabularFormat = (packages, prices) => {
     return (
       <div>
-        <p>PACKS&nbsp;&nbsp;PRICES</p>
-        {packages.map((pack, index) => (
-          <p key={index}>
-            {index + 1}. {pack} .................... {prices[index]}
-          </p>
-        ))}
+        <p>PACKS PRICES</p>
+        {packages.map((pack, index) => {
+          const packLen = pack.length;
+          const priceLen = String(prices[index]).length;
+          const indexLen = String(index + 1).length;
+          const totalLen = 20;
+          const dotsLen = totalLen - (packLen + priceLen + indexLen + 5); // 5 is the number of additional characters including dots, spaces, and indexes
+
+          let dots = "";
+          for (let i = 0; i < dotsLen; i++) {
+            dots += ".";
+          }
+
+          return (
+            <p key={index}>
+              {index + 1}. {pack} {dots} {prices[index]}
+            </p>
+          );
+        })}
         <p>Total: GHS{prices.reduce((acc, cur) => acc + cur, 0)}</p>
         <p>Orders placed on {new Date().toLocaleDateString("en-GB")}</p>
       </div>
     );
   };
 
-  const extractTextContent = (element) => {
-    if (typeof element === "string") {
-      return element; // Return the string directly
-    } else if (Array.isArray(element)) {
-      return element.map(extractTextContent).join(""); // Extract text content from each array item
-    } else if (
-      typeof element === "object" &&
-      element.props &&
-      element.props.children
-    ) {
-      return extractTextContent(element.props.children); // Extract text content from props.children
-    } else {
-      return ""; // Return an empty string for other types
-    }
-  };
-
   const handleCopyToClipboard = () => {
-    // Construct the header content
-    const headerContent = "PACKS\t\tPRICES\n";
+    let values = inputValue.split("+").map((value) => value.trim());
+    let packs = gigFormatter(values);
+    let prices = amounts(initialAgentPrices, values);
+    const plainTextLines = plainTextFormat(packs, prices);
 
-    // Extract text content from tableContent
-    const tableTextContent = extractTextContent(tableContent);
+    const plainText = plainTextLines.join("\n");
 
-    // Split the tableTextContent into lines based on <p> tags
-    const lines = tableTextContent.split("<p>");
-
-    // Remove empty lines and join the lines with newline characters
-    const plainTextContent =
-      headerContent + lines.filter((line) => line.trim() !== "").join("\n");
-
-    // Create a temporary textarea element and copy the text content to clipboard
-    // (The rest of the function remains the same)
-    const tempTextArea = document.createElement("textarea");
-
-    // Set the value of the textarea to the prepared text content
-    tempTextArea.value = plainTextContent
-      .replace(/<\/?p>/g, "\n")
-      .replace(/&nbsp;/g, "\t")
-      .replace(/<[^>]+>/g, ""); // Replace HTML tags and entities with proper line breaks and tabs
-
-    // Append the textarea to the document body
-    document.body.appendChild(tempTextArea);
-
-    // Select the content of the textarea
-    tempTextArea.select();
-
-    // Copy text content to clipboard
-    document.execCommand("copy");
-
-    // Remove the temporary textarea from the document body
-    document.body.removeChild(tempTextArea);
-
-    // Set isCopied to true to show the message
-    setIsCopied(true);
+    navigator.clipboard
+      .writeText(plainText)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 3000);
+      })
+      .catch((err) => console.error("Failed to copy:", err));
   };
+
+  function plainTextFormat(packages, prices) {
+    let output = [];
+    output.push("\nPACKS\t\tPRICES");
+    for (let i = 0; i < packages.length; i++) {
+      let pack = packages[i];
+      let price = prices[i];
+      let packLen = pack.length;
+      let priceLen = price.toString().length;
+      let middleLen =
+        20 - (packLen + 1 + (priceLen + 1) + (i.toString().length + 2));
+      let line = `${i + 1}. ${pack}`;
+      for (let j = 0; j < middleLen; j++) {
+        line += ".";
+      }
+      line += ` ${price}`;
+      output.push(line);
+    }
+    let total = prices.reduce((acc, curr) => acc + curr, 0);
+    output.push(`\nTotal: GHS${total}`);
+    let today = new Date().toLocaleDateString();
+    output.push(`\nOrders placed on ${today}`);
+    return output;
+  }
 
   return (
     <div className="main-container">
