@@ -107,14 +107,14 @@ const Home = () => {
 
   function plainTextFormat(packages, prices) {
     let output = [];
-    output.push("\nPACKS\t\tPRICES");
+    output.push("\n*PACKS*\t\t*PRICES*");
     for (let i = 0; i < packages.length; i++) {
       let pack = packages[i];
       let price = prices[i];
       let packLen = pack.length;
       let priceLen = price.toString().length;
       let middleLen =
-        20 - (packLen + 1 + (priceLen + 1) + (i.toString().length + 2));
+        30 - (packLen + 1 + (priceLen + 1) + (i.toString().length + 2));
       let line = `${i + 1}. ${pack}`;
       for (let j = 0; j < middleLen; j++) {
         line += ".";
@@ -123,9 +123,9 @@ const Home = () => {
       output.push(line);
     }
     let total = prices.reduce((acc, curr) => acc + curr, 0);
-    output.push(`\nTotal: GHS${total}`);
+    output.push(`\n*Total: GHS${total}*`);
     let today = new Date().toLocaleDateString();
-    output.push(`\nOrders placed on ${today}`);
+    output.push(`\n*Orders placed on ${today}*`);
     return output;
   }
 
