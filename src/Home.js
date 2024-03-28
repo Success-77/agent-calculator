@@ -11,21 +11,55 @@ function amounts(dictionary, packages) {
 const Home = () => {
   const initialAgentPrices = useMemo(
     () => ({
-      1: 5,
+      1: 4.3,
       2: 8.5,
       3: 11.5,
-      4: 17,
+      4: 15.5,
       5: 19,
-      6: 19 + 5,
-      7: 19 + 8.5,
-      8: 31,
-      9: 33,
+      6: 22.5,
+      7: 26,
+      8: 29,
+      9: 32,
       10: 35,
+      11: 4.3 + 35,
+      12: 8.5 + 35,
+      13: 11.5 + 35,
+      14: 15.5 + 35,
       15: 52,
+      16: 4.3 + 52,
+      17: 8.5 + 52,
+      18: 11.5 + 52,
+      19: 15.5 + 52,
       20: 68,
+      21: 4.3 + 68,
+      22: 8.5 + 68,
+      23: 11.5 + 68,
+      24: 15.5 + 68,
       25: 82,
+      26: 4.3 + 82,
+      27: 8.5 + 82,
+      28: 11.5 + 82,
+      29: 15.5 + 82,
       30: 100,
+      31: 4.3 + 100,
+      32: 8.5 + 100,
+      33: 11.5 + 100,
+      34: 15.5 + 100,
+      35: 117,
+      36: 4.3 + 117,
+      37: 8.5 + 117,
+      38: 11.5 + 117,
+      39: 15.5 + 117,
       40: 135,
+      41: 4.3 + 135,
+      42: 8.5 + 135,
+      43: 11.5 + 135,
+      44: 15.5 + 135,
+      45: 146,
+      46: 4.3 + 146,
+      47: 8.5 + 146,
+      48: 11.5 + 146,
+      49: 15.5 + 146,
       50: 158,
       100: 300,
     }),
@@ -61,7 +95,10 @@ const Home = () => {
   const tabularFormat = (packages, prices) => {
     return (
       <div>
-        <p>PACKS PRICES</p>
+        <h4 className="sales-header">
+          <span>Packs</span>
+          <span>Prices</span>
+        </h4>
         {packages.map((pack, index) => {
           const packLen = pack.length;
           const priceLen = String(prices[index]).length;
@@ -80,29 +117,34 @@ const Home = () => {
             </p>
           );
         })}
-        <p>Total: GHS{prices.reduce((acc, cur) => acc + cur, 0)}</p>
+        <p>
+          Total: GH&#8373;
+          {prices.reduce((acc, cur) => acc + cur, 0).toFixed(2)}
+        </p>
         <p>Orders placed on {new Date().toLocaleDateString("en-GB")}</p>
       </div>
     );
   };
 
   const handleCopyToClipboard = () => {
-    let values = inputValue.split("+").map((value) => value.trim());
-    let packs = gigFormatter(values);
-    let prices = amounts(initialAgentPrices, values);
-    const plainTextLines = plainTextFormat(packs, prices);
+    if (inputValue) {
+      let values = inputValue.split("+").map((value) => value.trim());
+      let packs = gigFormatter(values);
+      let prices = amounts(initialAgentPrices, values);
+      const plainTextLines = plainTextFormat(packs, prices);
 
-    const plainText = plainTextLines.join("\n");
+      const plainText = plainTextLines.join("\n");
 
-    navigator.clipboard
-      .writeText(plainText)
-      .then(() => {
-        setIsCopied(true);
-        setTimeout(() => {
-          setIsCopied(false);
-        }, 3000);
-      })
-      .catch((err) => console.error("Failed to copy:", err));
+      navigator.clipboard
+        .writeText(plainText)
+        .then(() => {
+          setIsCopied(true);
+          setTimeout(() => {
+            setIsCopied(false);
+          }, 1500);
+        })
+        .catch((err) => console.error("Failed to copy:", err));
+    }
   };
 
   function plainTextFormat(packages, prices) {
@@ -123,7 +165,7 @@ const Home = () => {
       output.push(line);
     }
     let total = prices.reduce((acc, curr) => acc + curr, 0);
-    output.push(`\n*Total: GHS${total}*`);
+    output.push(`\n*Total: GH₵${total}*`);
     let today = new Date().toLocaleDateString();
     output.push(`\n*Orders placed on ${today}*`);
     return output;
@@ -132,6 +174,7 @@ const Home = () => {
   return (
     <div className="main-container">
       <h3 className="home-header">Daily Sales Calculator</h3>
+
       <div className="form">
         <div className="input-sales">
           <label htmlFor="day_sales">
@@ -155,7 +198,7 @@ const Home = () => {
             Copy
           </button>
         )}
-        {isCopied && <p>Content copied!</p>}
+        {isCopied && <p>copied!</p>}
       </div>
     </div>
   );
