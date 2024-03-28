@@ -52,7 +52,7 @@
   background-color: transparent;
   display: flex;
   justify-content: space-between;
-  padding: 0 3rem;
+  padding: 0 2rem;
   box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
 }
 
