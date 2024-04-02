@@ -6,12 +6,6 @@
   padding: 0;
 }
 
-.navbar {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
-}
 .Home {
   margin: auto;
   width: 60%;
@@ -49,10 +43,14 @@
 
 /* Navbar Styles */
 .navbar {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
   background-color: transparent;
   display: flex;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 1.5rem 3rem;
   box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 6px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -94,6 +92,17 @@
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  margin: 5rem auto;
+}
+.sub-header {
+  font-weight: 900;
+  font-size: large;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin: 0 auto;
 }
 
 .input-sales {
@@ -158,13 +167,57 @@
   transition: 0.6s;
 }
 
-@media screen and (max-width: 900px) {
-  .navbar {
-    margin-bottom: 2.5rem;
-  }
-  .brand-name h3 {
-    font-size: medium;
-  }
+.tabs {
+  width: 45%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 8rem auto;
+}
+
+.tab-button {
+  width: 40%;
+  padding: 1rem 0;
+  border-radius: 12px;
+  background-color: blue;
+  color: whitesmoke;
+  font-size: medium;
+  border: none;
+}
+
+.tab-button:hover {
+  background-color: transparent;
+  border: none;
+  color: black;
+  background-color: transparent;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-weight: 600;
+}
+
+.remove {
+  display: none;
+}
+
+.tab-clicked {
+  margin: 2rem auto;
+  transition: margin 2s ease-in-out; /* Add transition for margin */
+}
+
+.move-header {
+  margin: 2rem auto 1rem;
+  transition: margin 2s ease-in-out; /* Add transition for margin */
+}
+
+.active {
+  background-color: transparent;
+  border: 2px solid black;
+  color: black;
+  font-weight: 600;
+}
+
+.totalAmt {
+  margin: 1rem auto;
+}
+@media screen and (max-width: 600px) {
   .Home {
     width: 95%;
   }
@@ -188,5 +241,64 @@
     font-size: medium;
     color: whitesmoke;
     background-color: green;
+  }
+
+  .tabs {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8rem auto;
+  }
+
+  .tab-button {
+    width: 100%;
+    padding: 0.8rem 0;
+    border-radius: 12px;
+    border: none;
+    background-color: transparent;
+    color: black;
+    font-size: medium;
+    margin: 1rem auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .tab-button:hover {
+    background-color: transparent;
+    border: none;
+    color: whitesmoke;
+    background-color: blue;
+    font-weight: 600;
+  }
+
+  .tab-clicked {
+    margin: 0 auto;
+    transition: margin 2s ease-in-out; /* Add transition for margin */
+  }
+
+  .active {
+    background-color: blue;
+    font-weight: 600;
+    color: whitesmoke;
+  }
+
+  .sales-header {
+    width: 80%;
+    margin: 1rem auto;
+  }
+
+  .form {
+    width: 80%;
+    margin: 2rem auto;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem 4rem;
+    border-radius: 12px;
+    color: #282c34;
+  }
+
+  .brand-name {
+    font-size: small;
   }
 }
