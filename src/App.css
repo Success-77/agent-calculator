@@ -4,9 +4,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
-.Home {
+.main-container {
   margin: auto;
   width: 60%;
 }
@@ -26,10 +27,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -63,12 +60,12 @@
   justify-content: space-between;
 }
 
-.list-item Link {
-  text-decoration: none;
+.list-item a {
+  text-decoration: none; /* Changed 'Link' to 'a' */
   color: black;
 }
 
-.list-item Link:hover {
+.list-item a:hover {
   color: powderblue;
   transition: 0.5s;
 }
@@ -178,27 +175,21 @@
   width: 40%;
   padding: 1rem 0;
   border-radius: 12px;
+  border: none;
   background-color: blue;
   color: whitesmoke;
   font-size: medium;
-  border: none;
 }
 
 .tab-button:hover {
   background-color: transparent;
-  border: none;
+  border: 2px solid black;
   color: black;
-  background-color: transparent;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   font-weight: 600;
 }
 
-.remove {
-  display: none;
-}
-
 .tab-clicked {
-  margin: 2rem auto;
+  margin: 2rem auto !important; /* Changed margin value and added !important */
   transition: margin 2s ease-in-out; /* Add transition for margin */
 }
 
@@ -217,8 +208,12 @@
 .totalAmt {
   margin: 1rem auto;
 }
+
+.brand-name {
+  font-size: small;
+}
 @media screen and (max-width: 600px) {
-  .Home {
+  .main-container {
     width: 95%;
   }
 
@@ -240,7 +235,8 @@
     width: 35%;
     font-size: medium;
     color: whitesmoke;
-    background-color: green;
+    background-color: blue;
+    border: none;
   }
 
   .tabs {
@@ -257,48 +253,7 @@
     padding: 0.8rem 0;
     border-radius: 12px;
     border: none;
-    background-color: transparent;
-    color: black;
-    font-size: medium;
-    margin: 1rem auto;
+    margin: 0 auto 1rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-
-  .tab-button:hover {
-    background-color: transparent;
-    border: none;
-    color: whitesmoke;
-    background-color: blue;
-    font-weight: 600;
-  }
-
-  .tab-clicked {
-    margin: 0 auto;
-    transition: margin 2s ease-in-out; /* Add transition for margin */
-  }
-
-  .active {
-    background-color: blue;
-    font-weight: 600;
-    color: whitesmoke;
-  }
-
-  .sales-header {
-    width: 80%;
-    margin: 1rem auto;
-  }
-
-  .form {
-    width: 80%;
-    margin: 2rem auto;
-    text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    padding: 2rem 4rem;
-    border-radius: 12px;
-    color: #282c34;
-  }
-
-  .brand-name {
-    font-size: small;
   }
 }
