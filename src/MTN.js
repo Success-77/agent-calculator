@@ -164,7 +164,7 @@ const MTN = () => {
       output.push(line);
     }
     let total = prices.reduce((acc, curr) => acc + curr, 0);
-    output.push(`\n*Total: GH₵${total}*`);
+    output.push(`\n*Total: GH₵${total.toFixed(2)}*`);
     let today = new Date().toLocaleDateString();
     output.push(`\n*Orders placed on ${today}*`);
     return output;
