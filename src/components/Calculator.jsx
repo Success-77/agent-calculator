@@ -161,12 +161,12 @@ const Calculator = ({ initialAgentPrices, network }) => {
               type="text"
               className="form-control"
               id="floatingInput"
-              placeholder="10 + 7 + 9 + 6 + 4"
+              placeholder="2 + 5 + 10"
               value={inputValue}
               onChange={handleInputChange}
               onBlur={handleInputBlur}
             />
-            <label htmlFor="floatingInput">{`Enter ${network} Packages`}</label>
+            <label htmlFor="floatingInput">Enter MTN Packages</label>
           </div>
           {inputError && <p className="error guide">{inputError}</p>}
         </div>
