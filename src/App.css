@@ -4,38 +4,12 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  width: 100%;
+  font-family: "Montserrat", sans-serif;
 }
 
-.main-container {
+.Home {
   margin: auto;
   width: 60%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* Navbar Styles */
@@ -60,18 +34,19 @@
   justify-content: space-between;
 }
 
-.list-item a {
-  text-decoration: none; /* Changed 'Link' to 'a' */
+.list-item Link {
+  text-decoration: none;
   color: black;
 }
 
-.list-item a:hover {
+.list-item Link:hover {
   color: powderblue;
   transition: 0.5s;
 }
 
 /* Homepage Styles */
-.form {
+.form,
+.payment {
   width: 60%;
   margin: 4rem auto;
   text-align: center;
@@ -81,6 +56,11 @@
   color: #282c34;
 }
 
+.payment {
+  text-transform: uppercase;
+  font-size: small;
+  line-height: 2;
+}
 .home-header {
   font-weight: 900;
   font-size: xx-large;
@@ -107,14 +87,6 @@
   margin: auto;
 }
 
-.input-sales label {
-  display: block;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: bold;
-}
-
 .sales-header {
   width: 60%;
   display: flex;
@@ -125,18 +97,13 @@
 
 .sales-header span {
   border-bottom: 2px solid black;
+  margin-bottom: 1rem;
+  font-size: large;
+  font-weight: 700;
 }
 
-#day_sales {
-  width: 90%;
-  height: 2.5rem;
-  text-align: center;
-  margin: 2rem 0;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: bold;
-  font-size: large;
+#floatingInput {
+  margin: 0;
 }
 
 .submit-button {
@@ -144,52 +111,70 @@
   margin: auto;
   text-align: center;
 }
+
 .copy {
-  width: 20%;
-  height: 2rem;
+  width: 7rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: none;
+  margin: 2rem auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+}
+.copy img {
+  width: 30px;
+  background-color: transparent;
+  padding: 0.3rem;
+}
+.copy span {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  font-style: normal;
   text-transform: uppercase;
   font-size: medium;
-  background-color: transparent;
-  border-radius: 8px;
-  margin: 2rem 0;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: #282c34;
+  padding: 0.3rem;
 }
 
 .copy:hover {
-  background-color: black;
-  color: whitesmoke;
-  transition: 0.6s;
+  transition: 0.3s;
+  opacity: 0.6;
 }
 
 .tabs {
-  width: 45%;
+  width: 60%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 8rem auto;
 }
 
 .tab-button {
-  width: 40%;
-  padding: 1rem 0;
-  border-radius: 12px;
-  border: none;
-  background-color: blue;
-  color: whitesmoke;
+  width: 20%;
+  padding: 0.5rem 0;
+  border-radius: 5px;
+  background-color: #282c34;
+  color: white;
   font-size: medium;
 }
 
 .tab-button:hover {
   background-color: transparent;
-  border: 2px solid black;
+  border: none;
   color: black;
+  background-color: transparent;
   font-weight: 600;
+  border: 2px solid #282c34;
+}
+
+.remove {
+  display: none;
 }
 
 .tab-clicked {
-  margin: 2rem auto !important; /* Changed margin value and added !important */
+  margin: 2rem auto;
   transition: margin 2s ease-in-out; /* Add transition for margin */
 }
 
@@ -209,11 +194,22 @@
   margin: 1rem auto;
 }
 
-.brand-name {
+.guide {
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
+}
+.small-text {
+  font-size: medium;
+  margin-bottom: 2rem;
+}
+.error {
+  color: red;
+  margin: 0;
   font-size: small;
 }
-@media screen and (max-width: 600px) {
-  .main-container {
+
+@media screen and (max-width: 768px) {
+  .Home {
     width: 95%;
   }
 
@@ -221,9 +217,11 @@
     font-size: larger;
   }
 
-  #day_sales {
-    width: 100%;
-    height: 2rem;
+  .sub-header {
+    margin: 2rem 0;
+    font-size: large;
+  }
+  #floatingInput {
     font-size: small;
   }
 
@@ -231,12 +229,11 @@
     font-size: small;
   }
 
+  .small-text {
+    font-size: small;
+  }
   .copy {
-    width: 35%;
     font-size: medium;
-    color: whitesmoke;
-    background-color: blue;
-    border: none;
   }
 
   .tabs {
@@ -245,15 +242,48 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 8rem auto;
   }
 
   .tab-button {
     width: 100%;
-    padding: 0.8rem 0;
-    border-radius: 12px;
     border: none;
-    margin: 0 auto 1rem;
+    font-size: medium;
+    margin: 1rem auto;
+  }
+
+  .tab-clicked {
+    margin: 0 auto;
+    transition: margin 2s ease-in-out; /* Add transition for margin */
+  }
+
+  .sales-header {
+    width: 80%;
+    margin: 1rem auto;
+  }
+
+  .form,
+  .payment {
+    width: 80%;
+    margin: 2rem auto;
+    text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem;
+    border-radius: 12px;
+    color: #282c34;
+  }
+
+  .input-sales {
+    width: 100%;
+  }
+
+  .brand-name h3 {
+    font-size: medium;
+  }
+
+  .active {
+    background-color: transparent;
+    border: 2px solid black;
+    color: black;
+    font-weight: 600;
   }
 }
