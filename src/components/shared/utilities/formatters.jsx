@@ -35,7 +35,7 @@ export function plainTextFormat(packages, prices, serverDetails) {
   output.push(`\n*Total: GH₵${total.toFixed(2)}*`);
   const today = new Date().toLocaleDateString();
   output.push(`\n*Orders placed on ${today}*`);
-  output.push(`\n*${serverDetails.number}*`);
-  output.push(`*[${serverDetails.momoName}]*\n`);
+  // output.push(`\n*${serverDetails.number}*`);
+  // output.push(`*[${serverDetails.momoName}]*\n`);
   return output;
 }
