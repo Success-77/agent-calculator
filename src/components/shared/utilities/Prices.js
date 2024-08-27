@@ -18,7 +18,7 @@ export const mtnPrices = {
   40: 152,
   50: 182,
   60: 212,
-  100: 330,
+  100: 332,
 };
 // export const mtnPrices = {
 //   1: 5.5,
